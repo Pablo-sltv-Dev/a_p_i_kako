@@ -131,4 +131,23 @@ class C_m_n_d_S(Crsr):
         # else:
         #     return "erro ao pegar dados"
         
-    
+    def C_d_S_t_S(self, nm, nmr, cf, ml, nh):
+        # -- nome, numero, cpf, email, senha
+        # novo_dado = {
+        #     "nome" : nm,
+        #     "numero": nmr,
+        #     "cpf" : cf,
+        #     "email": nh,
+        #     "senha": nh
+        # }
+        cmd ="insert into ALUNOS(nome, nmr, cpf, ml, snh) value(%s, %s, %s, %s, %s)" #mysql.connector.errors.ProgrammingError: 1064 (42000):
+
+        # cmd = f"insert into ALUNOS(nome,nmr, cpf, ml, snh) value('%{novo_dado["nome"]}', '%{novo_dado['numero']}', '%{novo_dado['cpf']}', '%{novo_dado['email']}', '{novo_dado['senha']}')"
+        # self.cursor.execute(cmd,(novo_dado["nome"], novo_dado["numero"], novo_dado["cpf"],novo_dado["email"], novo_dado["senha"]))
+        self.cursor.execute(cmd,(nm, nmr, cf, ml, nh))
+        self.cursor.close
+        self.conexao.close
+        return True
+        
+
+

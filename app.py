@@ -31,6 +31,28 @@ CORS(app)
 def prcss():
     return jsonify(C_m_n_d_S().v_z_l_z_r())
 
+
+@app.route("/mtrcl", methods=['POST'])
+def proces():
+    n = str("arhtur")
+    u = str("12345")
+    c = str("2134500")
+    m = str("aaa")
+    s = str("12345")
+
+    novo_info = C_m_n_d_S()
+    if(novo_info):
+        novo_info.C_d_S_t_S(nm=n, nmr=u, cf=c,ml=m, nh=s)
+        if (novo_info):
+            return jsonify({"mensagem": "cadastro feito com sucesso"})
+        else: 
+            return jsonify({"mensagem": "Erro ao cadastrar "})
+    else:
+            return jsonify({"mensagem": "Erro de conexão"})
+        
+
+
+
 @app.route("/test-db")
 def test_datanase():
     """Endpoint para testar conexão"""
