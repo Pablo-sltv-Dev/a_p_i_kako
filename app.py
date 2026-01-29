@@ -1,10 +1,13 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from config.database import db_config
+from config.database import *
 
 import os
 
 from dotenv import load_dotenv
+
+
+
 
 load_dotenv()
 
@@ -16,12 +19,17 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 #__isso permite a conexão dos apps
 CORS(app)
 
-@app.route("/")
-def home():
-    return jsonify({
-        "message": "API FUNCIONANDO",
-        "status": "online"
-    })
+# @app.route("/")
+# def home():
+#     return jsonify({
+#         "message": "API FUNCIONANDO",
+#         "status": "online"
+#     })
+
+
+@app.route("/vzlzdr", methods=['GET'])
+def prcss():
+    return jsonify(C_m_n_d_S().v_z_l_z_r())
 
 @app.route("/test-db")
 def test_datanase():
@@ -72,6 +80,10 @@ def database_info():
         return jsonify({
             "error": f"Erro ao obter informações: {str(e)}"
         }), 500
+
+
+
+
 
 if __name__ == '__main__':
     # Testar conexão ao iniciar

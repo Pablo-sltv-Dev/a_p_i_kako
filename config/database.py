@@ -1,7 +1,7 @@
 import mysql.connector
 
 from mysql.connector import pooling,Error
-
+import json
 import os
 from dotenv import load_dotenv
 
@@ -64,7 +64,7 @@ class Cnfg:
 db_config = Cnfg()
 
 
-# print(db_config.teste())
+
 
 
 
@@ -72,18 +72,63 @@ db_config = Cnfg()
     
         
 
-# class Cnx(Cnfg):
-#     def __init__(self):
-#         super().__init__()
-#         self.conexao = mysql.connector.connect(**self.config)
+class Cnx(Cnfg):
+    def __init__(self):
+        super().__init__()
+        self.conexao = mysql.connector.connect(**self.config)
 
-#     def testar(self):
-#         if self.conexao:
-#             self.conexao.close()
-#             return "CONECTADO"
-#         else:
-#             return "ERROR"
+    def teste(self):
+        if self.conexao:
+            self.conexao.close()
+             
+            return super().teste()
+        else:
+            return "\nConexão:ERROR\n"
+
+class Crsr(Cnx):
+    def __init__(self):
+        super().__init__()
+
+        self.cursor = self.conexao.cursor()
+    def teste(self):
+        if self.cursor:
+            return super().teste()
+        else:
+            return "\nCursor: ERROR\n"
 
 
+class C_m_n_d_S(Crsr):
+    def __init__(self):
+        super().__init__()
+    
+    
+    def v_z_l_z_r(self):
+        if self.cursor:
+            pass 
+        else:
+            return "Erro de conexão"
+        self.cursor.execute(" Select id_aln, nome, nmr, cpf, ml from ALUNOS ")
+        
+        dados = self.cursor.fetchall()
+        
+        return dados
+        # for rg, nome, te, cpf, ml in dados:
+        #      info = {
+        #         "numero": rg,
+        #         "nome": nome,
+        #         "telefone": te,
+        #         "cpf": cpf,
+        #         "email": ml
 
-# print(Cnx().testar())
+        #     }
+             
+        
+        # if info:
+            
+        #     self.cursor.close
+        #     self.conexao.close
+        #     return info
+        # else:
+        #     return "erro ao pegar dados"
+        
+    
