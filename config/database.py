@@ -5,6 +5,8 @@ import json
 import os
 from dotenv import load_dotenv
 
+
+
 load_dotenv()
 
 class Cnfg:
@@ -64,7 +66,7 @@ class Cnfg:
 db_config = Cnfg()
 
 
-
+from .sabe import *
 
 
 
@@ -102,11 +104,11 @@ class C_m_n_d_S(Crsr):
         super().__init__()
     
     
-    def v_z_l_z_r(self):
-        if self.cursor:
-            pass 
-        else:
-            return "Erro de conexão"
+    def v_z_l_z_r(self, n):
+        
+       
+        
+
         self.cursor.execute(" Select id_aln, nome, nmr, cpf, ml from ALUNOS ")
         
         dados = self.cursor.fetchall()
@@ -132,6 +134,7 @@ class C_m_n_d_S(Crsr):
         #     return "erro ao pegar dados"
         
     def C_d_S_t_S(self, nm, nmr, cf, ml, nh):
+        passe = carregar(nh)
         # -- nome, numero, cpf, email, senha
         # novo_dado = {
         #     "nome" : nm,
@@ -140,14 +143,15 @@ class C_m_n_d_S(Crsr):
         #     "email": nh,
         #     "senha": nh
         # }
-        cmd ="insert into ALUNOS(nome, nmr, cpf, ml, snh) value(%s, %s, %s, %s, %s)" #mysql.connector.errors.ProgrammingError: 1064 (42000):
+        
+        cmd ="insert into ALUNOS(nome, nmr, dt_nscmnt, ml, snh) value(%s, %s, %s, %s, %s)" #mysql.connector.errors.ProgrammingError: 1064 (42000):
 
         # cmd = f"insert into ALUNOS(nome,nmr, cpf, ml, snh) value('%{novo_dado["nome"]}', '%{novo_dado['numero']}', '%{novo_dado['cpf']}', '%{novo_dado['email']}', '{novo_dado['senha']}')"
         # self.cursor.execute(cmd,(novo_dado["nome"], novo_dado["numero"], novo_dado["cpf"],novo_dado["email"], novo_dado["senha"]))
-        self.cursor.execute(cmd,(nm, nmr, cf, ml, nh))
+        self.cursor.execute(cmd,(nm, nmr, cf, ml, passe))
         self.cursor.close
         self.conexao.close
         return True
         
 
-
+# print(C_m_n_d_S().v_z_l_z_r("kako"))
