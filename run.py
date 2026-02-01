@@ -12,7 +12,7 @@ if __name__ == '__main__':
     #     print(f"✅ {message}")
     #     app.run(
     #         host='0.0.0.0',
-    #         port=5000,
+    #         port=,
     #         debug=os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
     #     )
     # else:

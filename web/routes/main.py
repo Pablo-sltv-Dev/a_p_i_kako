@@ -1,5 +1,5 @@
 from web import app
-from flask import Flask, jsonify, request
+from flask import jsonify, request
 from flask_cors import CORS
 from ..config.database import *
 import os
