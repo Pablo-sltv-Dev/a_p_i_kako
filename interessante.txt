@@ -1,0 +1,23 @@
+@app.route("/<numero>", methods=['GET','POST'])
+def home(numero):
+    return "Olá mundo {}".format(numero)
+
+_________________________________________________________________________________________---
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def home():
+    return jsonify({ "nome" : "Pablo"})
+
+
+if __name__=='__main__':
+    app.run()
+
+_________________________________________________________________________________________---
+@app.route("/<id>")
+def home(id):
+    return jsonify({'id': id, 'nome' : 'Pablo', 'prof': 'desenvolvedor'})
+_________________________________________________________________________________________---
