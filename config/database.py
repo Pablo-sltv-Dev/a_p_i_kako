@@ -5,6 +5,14 @@ import json
 import os
 from dotenv import load_dotenv
 
+import hashlib
+
+
+def carregar(text: str) -> str:
+    hasg = hashlib.sha256(text.encode('utf-8'))
+    return hasg.hexdigest()
+
+
 
 
 load_dotenv()
@@ -66,7 +74,7 @@ class Cnfg:
 db_config = Cnfg()
 
 
-from .sabe import *
+
 
 
 
@@ -104,54 +112,35 @@ class C_m_n_d_S(Crsr):
         super().__init__()
     
     
-    def v_z_l_z_r(self, n):
-        
-       
-        
-
-        self.cursor.execute(" Select id_aln, nome, nmr, cpf, ml from ALUNOS ")
-        
-        dados = self.cursor.fetchall()
-        
-        return dados
-        # for rg, nome, te, cpf, ml in dados:
-        #      info = {
-        #         "numero": rg,
-        #         "nome": nome,
-        #         "telefone": te,
-        #         "cpf": cpf,
-        #         "email": ml
-
-        #     }
-             
-        
-        # if info:
-            
-        #     self.cursor.close
-        #     self.conexao.close
-        #     return info
-        # else:
-        #     return "erro ao pegar dados"
+    def v_z_l_z_r(self, pdd):
+        cmd = "select nome, nmr, dt_nscmnt, ml from ALUNOS where nome = %s"
+        self.cursor.execute(cmd, (pdd,))
+        resultado = self.cursor.fetchall()
+        d = resultado[0]
+        self.cursor.close()
+        self.conexao.close()
+        return d
         
     def C_d_S_t_S(self, nm, nmr, cf, ml, nh):
-        passe = carregar(nh)
+        # passe = carregar(nh)
         # -- nome, numero, cpf, email, senha
-        # novo_dado = {
-        #     "nome" : nm,
-        #     "numero": nmr,
-        #     "cpf" : cf,
-        #     "email": nh,
-        #     "senha": nh
-        # }
+
+        novo_cdstr = {"nome" : nm, "numero": nmr, "dtns" : cf,"email": ml,"senha": carregar(nh)}
         
         cmd ="insert into ALUNOS(nome, nmr, dt_nscmnt, ml, snh) value(%s, %s, %s, %s, %s)" #mysql.connector.errors.ProgrammingError: 1064 (42000):
 
         # cmd = f"insert into ALUNOS(nome,nmr, cpf, ml, snh) value('%{novo_dado["nome"]}', '%{novo_dado['numero']}', '%{novo_dado['cpf']}', '%{novo_dado['email']}', '{novo_dado['senha']}')"
         # self.cursor.execute(cmd,(novo_dado["nome"], novo_dado["numero"], novo_dado["cpf"],novo_dado["email"], novo_dado["senha"]))
-        self.cursor.execute(cmd,(nm, nmr, cf, ml, passe))
+        self.cursor.execute(cmd,(novo_cdstr["nome"], novo_cdstr["numero"], novo_cdstr['dtns'] ,novo_cdstr["email"], novo_cdstr["senha"]))
+        
         self.cursor.close
         self.conexao.close
         return True
         
+    def teste(self, nm, nmr, cf, ml, nh):
+        print(nm, nmr, cf, ml, nh)
+        return True
+    
+
 
 # print(C_m_n_d_S().v_z_l_z_r("kako"))
