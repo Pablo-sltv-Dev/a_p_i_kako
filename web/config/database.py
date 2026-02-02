@@ -103,10 +103,11 @@ class C_m_n_d_S(Crsr):
     
     
     def v_z_l_z_r(self, pdd):
+        print(pdd, "lnh 106 db")
         cmd = "select nome, nmr, dt_nscmnt, ml from ALUNOS where nome = %s"
         self.cursor.execute(cmd, (pdd,))
         resultado = self.cursor.fetchall()
-        # print(resultado)
+        print(resultado)
         if resultado == None or len(resultado) == 0:
             return None
         else:
@@ -132,9 +133,14 @@ class C_m_n_d_S(Crsr):
         self.conexao.close
         return True
         
-    def teste(self, nm, nmr, cf, ml, nh):
-        print(nm, nmr, cf, ml, nh)
-        return True
+    # def teste(self, nm, nmr, cf, ml, nh):
+    #     print(nm, nmr, cf, ml, nh)
+    #     return True
+    def c_h_k(self, dado):
+        if dado != None or dado:
+            return True
+        else:
+            return False
     
 
 
