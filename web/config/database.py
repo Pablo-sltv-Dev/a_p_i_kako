@@ -72,17 +72,6 @@ class Cnfg:
 
 # Instância global
 db_config = Cnfg()
-
-
-
-
-
-
-
-
-    
-        
-
 class Cnx(Cnfg):
     def __init__(self):
         super().__init__()
@@ -117,10 +106,15 @@ class C_m_n_d_S(Crsr):
         cmd = "select nome, nmr, dt_nscmnt, ml from ALUNOS where nome = %s"
         self.cursor.execute(cmd, (pdd,))
         resultado = self.cursor.fetchall()
-        d = resultado[0]
-        self.cursor.close()
-        self.conexao.close()
-        return d
+        # print(resultado)
+        if resultado == None or len(resultado) == 0:
+            return None
+        else:
+            d = resultado[0]
+            self.cursor.close()
+            self.conexao.close()
+            return d
+        
         
     def C_d_S_t_S(self, nm, nmr, cf, ml, nh):
         # passe = carregar(nh)
@@ -144,4 +138,4 @@ class C_m_n_d_S(Crsr):
     
 
 
-# print(C_m_n_d_S().v_z_l_z_r("kako"))
+# print(C_m_n_d_S().v_z_l_z_r("ppp"))

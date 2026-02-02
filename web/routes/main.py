@@ -19,18 +19,18 @@ def home():
     # return True
     return jsonify({"message": "API FUNCIONANDO","status": "online"})
 
-@app.route('/<tipo>', methods=['POST', 'GET'])
+@app.route('/<tipo>', methods=['POST'])
 def proces(tipo):
     if tipo == "psqs" and  request.method == 'POST':
         pdd_baby = request.get_json()
-        if pdd_baby != None:
-               #  print(f"\ninformação captada\n{pdd_baby}\n")
+        if pdd_baby != any:
+                print(f"\ninformação captada\n{pdd_baby}\n")
                 rspst_daddy = pr(pdd_baby)
-                if rspst_daddy:
-                     return jsonify({"nome" : rspst_daddy[0],"numero": rspst_daddy[1],"dt_nsc": rspst_daddy[2],"email":rspst_daddy[3]}    
+                if rspst_daddy != None:
+                     return jsonify({'Resultado':'positivo',"nome" : rspst_daddy[0],"numero": rspst_daddy[1],"dt_nsc": rspst_daddy[2],"email":rspst_daddy[3]}    
                      )
-                if rspst_daddy == None:
-                    return jsonify({"mensage": "sem resultados"})
+                elif rspst_daddy == None:
+                    return jsonify({"Resultado": None})
                 else:
                      return jsonify({"mensage": "acheei"})
         else:

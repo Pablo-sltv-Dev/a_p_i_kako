@@ -11,20 +11,25 @@ from dotenv import load_dotenv
 
 
 
+
 @app.get("/<nome>")
 def pr(nome):
+     print(nome)
      if nome == None:
           return None
      else:
           daddy = C_m_n_d_S()
           rsltdd = daddy.v_z_l_z_r(nome)
-     return rsltdd
+          if rsltdd != None:
+               return rsltdd
+          else:
+               return None
 
 
         
 
 
-@app.post("/")
+@app.post("/mtrcl/dc")
 def mudar(dds):
      x = dds
      if x != None:
