@@ -1,10 +1,9 @@
 from web import app
 from ..config import *
-
-@app.get("/aln_bjj/vrfcc/")
-def proce(dado):
-    if dado != None or dado:
-        v = C_m_n_d_S()
-        v.c_h_k(dado)
+from flask import jsonify
+@app.route("/<nm>")
+def aln(nm):
+    if nm == 'kako':
+        return jsonify({"mensagem:" : "o usaurio entrou"})
     else:
-        return False
+        return jsonify({"mensagem": "erro de sistema"})

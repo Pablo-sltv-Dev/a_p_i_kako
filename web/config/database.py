@@ -1,5 +1,5 @@
 import mysql.connector
-
+from datetime import datetime
 from mysql.connector import pooling,Error
 import json
 import os
@@ -89,7 +89,8 @@ class Crsr(Cnx):
     def __init__(self):
         super().__init__()
 
-        self.cursor = self.conexao.cursor()
+        self.cursor = self.conexao.cursor(dictionary=True)
+        
     def teste(self):
         if self.cursor:
             return super().teste()
@@ -102,19 +103,19 @@ class C_m_n_d_S(Crsr):
         super().__init__()
     
     
-    def v_z_l_z_r(self, pdd):
-        print(pdd, "lnh 106 db")
-        cmd = "select nome, nmr, dt_nscmnt, ml from ALUNOS where nome = %s"
-        self.cursor.execute(cmd, (pdd,))
-        resultado = self.cursor.fetchall()
-        print(resultado)
-        if resultado == None or len(resultado) == 0:
-            return None
-        else:
-            d = resultado[0]
-            self.cursor.close()
-            self.conexao.close()
-            return d
+    # def v_z_l_z_r(self, pdd):
+    #     print(pdd, "lnh 106 db")
+    #     cmd = "select nome, nmr, dt_nscmnt, ml from ALUNOS where nome = %s"
+    #     self.cursor.execute(cmd, (pdd,))
+    #     resultado = self.cursor.fetchall()
+    #     print(resultado)
+    #     if resultado == None or len(resultado) == 0:
+    #         return None
+    #     else:
+    #         d = resultado[0]
+    #         self.cursor.close()
+    #         self.conexao.close()
+    #         return d
         
         
     def C_d_S_t_S(self, nm, nmr, cf, ml, nh):
@@ -144,4 +145,82 @@ class C_m_n_d_S(Crsr):
     
 
 
-# print(C_m_n_d_S().v_z_l_z_r("ppp"))
+
+
+class c_M_N_D_s_ln(Crsr):
+    def __init__(self):
+        super().__init__()
+
+
+    def tudo(self):
+        cmd = " select nome, dt_nscmnt as data, snh as chave from ALUNOS; "
+        self.cursor.execute(cmd)
+        dds = self.cursor.fetchall()
+        
+                    
+        
+        # print(v['nome'])
+              
+        # nome data chave
+        # print(dds)
+        # print(len(dds))
+            
+            
+        # nome data chave
+        self.cursor.close()
+        self.conexao.close()
+        return dds
+
+
+
+
+    def cnvrt(self, t):
+        return datetime.strptime(t, '%Y, %m, %d').date()
+
+    #     dds = {
+    #     "nome" : dados['x'],
+    #     "data" : d ,
+    #     "s": dados['z']
+    #     }
+    #     print(dds["data"])
+    #     # print()
+    #     # c = datetime.str
+    #     cmd = " select exists( select 1 from ALUNOS where nome = %s and dt_nscmnt = %s and snh = %s ); "
+    #     self.cursor.execute(cmd,(dds["nome"],dds["data"],dds["s"],))
+    #     l = self.cursor.fetchall()[0]
+    #     print(l)
+    #     # "exists( select 1 from ALUNOS where nome = 'teste' and dt_nscmnt = '1111-11-11' and snh = 'senhafalsa' 
+        
+    #     if bool(l) == True:
+    #         return True
+    #     else:
+    #         return False
+
+
+
+    def pgr(self):
+        self.cursor.execute(" select nome as t, dt_nscmnt as n, snh as k  from ALUNOS ")
+        lote = self.cursor.fetchone()[0]
+        self.cursor.close()
+        self.conexao.close()
+        return lote
+        
+    
+# def C_h_c_K( n, d, s):
+#     print("acessou a linha 151")
+#     dados = {
+#         "nome" : n,
+#         "data" : d,
+#         "s": s
+#     }
+#     arm = c_M_N_D_s_ln().pgr
+#     for info in arm:
+#         if dados["nome"] == info['t'] and dados["data"] == info[n] and dados["s"] == info['k']:
+#             return True
+#         else:
+#             return False
+
+
+# d = c_M_N_D_s_ln()  #{'x' : "teste",  'y' : '1111/11/11',    'z' : 'senhafalsa'}
+
+# print(d.cnvrt('1111/11/11'))
