@@ -1,6 +1,0 @@
-[{'nome': 'teste', 'data': datetime.date(2025, 1, 30), 'chave': 'senhafalsa'}, 
-{'nome': 'kako', 'data': datetime.date(2026, 1, 30), 'chave': '4d621ba7f6c9b9ff41eddc47f6e24fd2e007f35e607b6040adbcb34c5dd98bb9'}, 
-{'nome': '1', 'data': datetime.date(1111, 11, 11), 'chave': 'd17f25ecfbcc7857f7bebea469308be0b2580943e96d13a3ad98a13675c4bfc2'}, 
-{'nome': 'Kalvin', 'data': datetime.date(1111, 1, 7), 'chave': '0aca60a53597b8e151615e461e7b084b06e01b22d6eb4cf174d33913515eb47d'}, 
-{'nome': 'FranssuaR', 'data': datetime.date(1111, 1, 7), 'chave': '0aca60a53597b8e151615e461e7b084b06e01b22d6eb4cf174d33913515eb47d'}, 
-{'nome': 'FranssuaR', 'data': datetime.date(1111, 1, 7), 'chave': '0aca60a53597b8e151615e461e7b084b06e01b22d6eb4cf174d33913515eb47d'}]

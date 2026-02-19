@@ -145,6 +145,11 @@ class C_m_n_d_S(Crsr):
     
 
 
+class CnfG_ALN:
+    def __init__(self):
+        self.config = {
+            
+        }
 
 
 class c_M_N_D_s_ln(Crsr):
@@ -177,26 +182,7 @@ class c_M_N_D_s_ln(Crsr):
     def cnvrt(self, t):
         return datetime.strptime(t, '%Y, %m, %d').date()
 
-    #     dds = {
-    #     "nome" : dados['x'],
-    #     "data" : d ,
-    #     "s": dados['z']
-    #     }
-    #     print(dds["data"])
-    #     # print()
-    #     # c = datetime.str
-    #     cmd = " select exists( select 1 from ALUNOS where nome = %s and dt_nscmnt = %s and snh = %s ); "
-    #     self.cursor.execute(cmd,(dds["nome"],dds["data"],dds["s"],))
-    #     l = self.cursor.fetchall()[0]
-    #     print(l)
-    #     # "exists( select 1 from ALUNOS where nome = 'teste' and dt_nscmnt = '1111-11-11' and snh = 'senhafalsa' 
-        
-    #     if bool(l) == True:
-    #         return True
-    #     else:
-    #         return False
-
-
+    
 
     def pgr(self):
         self.cursor.execute(" select nome as t, dt_nscmnt as n, snh as k  from ALUNOS ")
@@ -224,3 +210,6 @@ class c_M_N_D_s_ln(Crsr):
 # d = c_M_N_D_s_ln()  #{'x' : "teste",  'y' : '1111/11/11',    'z' : 'senhafalsa'}
 
 # print(d.cnvrt('1111/11/11'))
+
+
+# print(carregar("teste_da_user_0123"))
