@@ -2,7 +2,7 @@
 import mysql.connector
 from datetime import datetime
 from mysql.connector import pooling,Error
-import json
+from pathlib import Path
 import os
 from dotenv import load_dotenv
 
@@ -17,15 +17,19 @@ from dotenv import load_dotenv
 
 class CnfG_ALN:
     def __init__(self):
+        BASE = Path(__file__).resolve().parent / "intern" 
+        ENV_PATH = BASE / ".env"
+        load_dotenv(ENV_PATH)
         self.config = {
-            'user': os.getenv('DB_USER'),
-            'password': os.getenv('DB_PASSWORD'),
-            'host': os.getenv('DB_HOST'),
-            'database': os.getenv('DB_NAME'), 
-            'port': os.getenv('DB_PORT', 3306),
+            'user': os.getenv('DB_USER_ALN'),
+            'password': os.getenv('DB_PASSWORD_ALN'),
+            'host': os.getenv('DB_HOST_ALN'),
+            'database': os.getenv('DB_NAME_ALN'), 
+            'port': os.getenv('DB_PORT_ALN', 3306),
              'raise_on_warnings': True,
             'autocommit': True
         }
+        
         try:
                 self.pool = pooling.MySQLConnectionPool(
                     pool_name= "api_pool", #nome da pool(identificação)
@@ -68,3 +72,5 @@ class CnfG_ALN:
         else:
             return '''\n___[__| TESTE DE CONEXAO: ERROR |__]\n'''
 
+
+# print(CnfG_ALN().teste())

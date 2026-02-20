@@ -22,10 +22,10 @@ CORS(app,
 sucess = v_l_d_d(".env")
 
 from .routes import *
+from .models import *
 
 
-
-# from .aluno import *
+from aluno import *
 
 
 

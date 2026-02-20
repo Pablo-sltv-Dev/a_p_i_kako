@@ -18,11 +18,7 @@ def carregar(text: str) -> str:
 
 
 
-# DB_USER=ipa_aln
-# DB_PASSWORD=Aln*93s23
-# DB_HOST=localhost
-# DB_NAME=bnc_kako_prjt
-# DB_PORT=3306
+
 
 
 # load_dotenv("intern/.env")
@@ -42,6 +38,7 @@ class Cnfg:
             'autocommit': True
         }
         # print(self.config)
+        
         try:
                 self.pool = pooling.MySQLConnectionPool(
                     pool_name= "api_pool", #nome da pool(identificação)
