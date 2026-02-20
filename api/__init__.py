@@ -1,0 +1,30 @@
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+# from 
+from .config import *
+import os
+
+from dotenv import load_dotenv
+
+
+
+
+# load_dotenv()
+
+
+app = Flask(__name__)
+from .config import *
+# app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+# app.config['DATABASE_URL'] = os.getenv('DATABASE_URL')
+
+
+# CORS(app)
+
+sucess = v_l_d_d(".env")
+
+
+from .professor import *
+from .aluno import *
+
+
+

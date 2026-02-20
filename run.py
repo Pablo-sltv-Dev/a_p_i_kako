@@ -1,23 +1,21 @@
-from web import app
+from api import app, sucess
 
 
-
+# print(sucess)
 if __name__ == '__main__':
-    app.run(debug=True)
     # Testar conexão ao iniciar
     # print("🚀 Iniciando API...")
     # success, message = db_config.test_connection()
     
-    # if success:
-    #     print(f"✅ {message}")
-    #     app.run(
-    #         host='0.0.0.0',
-    #         port=,
-    #         debug=os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
-    #     )
-    # else:
-    #     print(f"❌ {message}")
-    #     print("🔧 Verifique suas configurações no arquivo .env")
+    if sucess:
+        app.run(
+            host='0.0.0.0',
+            port= sucess['port'],
+            debug=sucess['debug']
+        )
+    else:
+        
+        print("🔧 Verifique suas configurações no arquivo .env")
 
 
 

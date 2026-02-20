@@ -6,15 +6,7 @@ import os
 from dotenv import load_dotenv
 
 
-class CnfG_ALN:
-    def __init__(self):
-        self.config = {
-            'user': 'ipa_aln',
-            'password': 'Aln*93s23',
-            'host': 'localhost',
-            'database': 'bnc_kako_prjt',
-            'port': 3306
-        }
+
 
 class CnX(CnfG_ALN):
     def __init__(self):
