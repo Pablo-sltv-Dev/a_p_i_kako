@@ -1,7 +1,7 @@
 import mysql.connector
 from datetime import datetime
 from mysql.connector import pooling,Error
-import json
+from pathlib import Path
 import os
 from dotenv import load_dotenv
 
@@ -15,13 +15,23 @@ def carregar(text: str) -> str:
 
 
 
-load_dotenv()
 
 
 
+# DB_USER=ipa_aln
+# DB_PASSWORD=Aln*93s23
+# DB_HOST=localhost
+# DB_NAME=bnc_kako_prjt
+# DB_PORT=3306
+
+
+# load_dotenv("intern/.env")
 
 class Cnfg:
     def __init__(self):
+        BASE = Path(__file__).resolve().parent / "intern" 
+        ENV_PATH = BASE / ".env"
+        load_dotenv(ENV_PATH)
         self.config = {
             'user': os.getenv('DB_USER'),
             'password': os.getenv('DB_PASSWORD'),
@@ -31,6 +41,7 @@ class Cnfg:
              'raise_on_warnings': True,
             'autocommit': True
         }
+        # print(self.config)
         try:
                 self.pool = pooling.MySQLConnectionPool(
                     pool_name= "api_pool", #nome da pool(identificação)
@@ -72,3 +83,5 @@ class Cnfg:
             return '''\n___[__| TESTE DE CONEXAO: OK -|__]\n '''
         else:
             return '''\n___[__| TESTE DE CONEXAO: ERROR |__]\n'''
+        
+# print(Cnfg().teste())

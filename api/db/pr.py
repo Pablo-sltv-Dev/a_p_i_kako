@@ -1,11 +1,12 @@
-from config import *
+from .config import *
 import mysql.connector
-from datetime import datetime
-from mysql.connector import pooling,Error
+# from datetime import datetime
+# from mysql.connector import pooling,Error
 
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 
+load_dotenv("config/intern/.env")
 
 
 # Instância global
@@ -13,8 +14,8 @@ from mysql.connector import pooling,Error
 class Cnx(Cnfg):
     def __init__(self):
         super().__init__()
+        # print(self.config)
         self.conexao = mysql.connector.connect(**self.config)
-
     def teste(self):
         if self.conexao:
             self.conexao.close()
@@ -22,6 +23,8 @@ class Cnx(Cnfg):
             return super().teste()
         else:
             return "\nConexão:ERROR\n"
+
+# print(Cnx())
 
 class Crsr(Cnx):
     def __init__(self):
@@ -35,6 +38,7 @@ class Crsr(Cnx):
         else:
             return "\nCursor: ERROR\n"
 
+# print(Crsr().teste())
 
 class C_m_n_d_S(Crsr):
     def __init__(self):
@@ -42,16 +46,31 @@ class C_m_n_d_S(Crsr):
     
     
     
+    def V_z_l_z_r(self):
+        cmd = "select nome, nmr as numero, dt_nscmnt as data from ALUNOS"
+        self.cursor.execute(cmd)
+        resposta = self.cursor.fetchall()[0]
+        aln = {
+            "1.": resposta['nome'],
+            "2.": resposta['numero'],
+            "3.": resposta['data']
+        }
+        self.cursor.close()
+        self.conexao.close()
+        return aln
         
-        
-    def C_d_S_t_S(self, nm, nmr, cf, ml, nh):
+    def C_d_S_t_S(self, nm, nmr, cf, nh):
         # passe = carregar(nh)
         # -- nome, numero, data de nascimento, senha
 
-        novo_cdstr = {"nome" : nm, "numero": nmr, "dtns" : cf,"email": ml,"senha": carregar(nh)}
+        novo_cdstr = {
+            "nome" : nm, 
+            "numero": nmr, 
+            "dtns" : cf,
+            "senha": carregar(nh)}
         
-        cmd ="insert into ALUNOS(nome, nmr, dt_nscmnt, ml, snh) value(%s, %s, %s, %s, %s)" 
-        self.cursor.execute(cmd,(novo_cdstr["nome"], novo_cdstr["numero"], novo_cdstr['dtns'] ,novo_cdstr["email"], novo_cdstr["senha"]))
+        cmd ="insert into ALUNOS(nome, nmr, dt_nscmnt, snh) value(%s, %s, %s, %s)" 
+        self.cursor.execute(cmd,(novo_cdstr["nome"], novo_cdstr["numero"], novo_cdstr['dtns'] , novo_cdstr["senha"]))
         
         self.cursor.close
         self.conexao.close
@@ -64,6 +83,16 @@ class C_m_n_d_S(Crsr):
         else:
             return False
     
+dados = {
+    "1": "João",
+    "2": 111111111,
+    "3": "2222-02-22",
+    "4": "senhafalsaexemplo1"
+}
+
+# print(C_m_n_d_S().C_d_S_t_S(dados["1"],dados["2"],dados["3"],dados["4"]))
+
+
 
 
 # class CnfG_ALN:
@@ -127,3 +156,4 @@ class C_m_n_d_S(Crsr):
 
 
 # # print(carregar("teste_da_user_0123"))
+

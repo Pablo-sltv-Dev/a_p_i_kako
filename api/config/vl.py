@@ -4,9 +4,22 @@ from pathlib import Path
 from flask import jsonify
 
 
-def v_l_d_d(ark: str):
+def v_l_d_d(nome=None):
     # BAse_dir =
-    path= Path(__file__).resolve().parent / "db" / ark
+    if nome == None:
+        dados = {
+            "tp" : str("production"),
+            "ch": None,
+            "debug": False,
+            "port": 8000
+        }
+        return dados
+    else:
+        pass
+    # print("ele entendeu que é pra continuar")
+
+    ark = str(nome)
+    path= Path(__file__).resolve().parent / "db" / "intern" /ark
     rsp = load_dotenv(path)
 
     if rsp:
@@ -21,4 +34,4 @@ def v_l_d_d(ark: str):
     else:
         return "\nerror\n"
     
-# print(v_l_d_d())
+# print(v_l_d_d(".env"))
