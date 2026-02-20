@@ -1,4 +1,4 @@
-from ..models import *
+from config import *
 import mysql.connector
 from datetime import datetime
 from mysql.connector import pooling,Error
@@ -46,14 +46,11 @@ class C_m_n_d_S(Crsr):
         
     def C_d_S_t_S(self, nm, nmr, cf, ml, nh):
         # passe = carregar(nh)
-        # -- nome, numero, cpf, email, senha
+        # -- nome, numero, data de nascimento, senha
 
         novo_cdstr = {"nome" : nm, "numero": nmr, "dtns" : cf,"email": ml,"senha": carregar(nh)}
         
-        cmd ="insert into ALUNOS(nome, nmr, dt_nscmnt, ml, snh) value(%s, %s, %s, %s, %s)" #mysql.connector.errors.ProgrammingError: 1064 (42000):
-
-        # cmd = f"insert into ALUNOS(nome,nmr, cpf, ml, snh) value('%{novo_dado["nome"]}', '%{novo_dado['numero']}', '%{novo_dado['cpf']}', '%{novo_dado['email']}', '{novo_dado['senha']}')"
-        # self.cursor.execute(cmd,(novo_dado["nome"], novo_dado["numero"], novo_dado["cpf"],novo_dado["email"], novo_dado["senha"]))
+        cmd ="insert into ALUNOS(nome, nmr, dt_nscmnt, ml, snh) value(%s, %s, %s, %s, %s)" 
         self.cursor.execute(cmd,(novo_cdstr["nome"], novo_cdstr["numero"], novo_cdstr['dtns'] ,novo_cdstr["email"], novo_cdstr["senha"]))
         
         self.cursor.close
