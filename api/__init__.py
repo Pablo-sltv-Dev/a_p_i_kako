@@ -20,7 +20,7 @@ app = Flask(__name__)
 #      allow_headers=['Content-Type'],
 #      supports_credentials=True)
 
-sucess = v_l_d_d('.env')
+sucess = v_l_d_d()
 
 from .routes import *
 from .models import *
