@@ -1,7 +1,7 @@
 from api import app, L_g
 from flask import jsonify, request
 
-@app.route("/aln_bjj/vrfcc/", methods=['POST'])
+@app.route("/aln_bjj/vrfcc/", methods=['POST']) # seria o login, verifica a info e faz login
 def proce():
     dados = request.get_json()
     resposta = {
