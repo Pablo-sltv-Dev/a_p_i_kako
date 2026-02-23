@@ -1,4 +1,4 @@
-from api import *
+from db import c_M_N_D_s_A_l_N, carregar
 
 
 class L_g:

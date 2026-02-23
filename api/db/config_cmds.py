@@ -14,16 +14,7 @@ def carregar(text: str) -> str:
 
 
 
-
-
-
-
-
-
-
-# load_dotenv("intern/.env")
-
-class Cnfg:
+class Cnfg: #configações de conexão
     def __init__(self):
         BASE = Path(__file__).resolve().parent / "intern" 
         ENV_PATH = BASE / ".env"
@@ -79,6 +70,82 @@ class Cnfg:
         if self.config:
             return '''\n___[__| TESTE DE CONEXAO: OK -|__]\n '''
         else:
-            return '''\n___[__| TESTE DE CONEXAO: ERROR |__]\n'''
+            raise ValueError('\n___[__| TESTE DE CONEXAO: ERROR |__]\n')
         
 # print(Cnfg().teste())
+
+# Instância global
+# db_config = Cnfg()
+class Cnx(Cnfg):
+    def __init__(self):
+        super().__init__()
+        # print(self.config)
+        self.conexao = mysql.connector.connect(**self.config)
+    def teste(self):
+        if self.conexao:
+            return super().teste()
+        elif not self.config or self.conexao:
+            raise ValueError('\n___[__| TESTE DE CONEXAO: ERROR |__]\n')
+
+
+# print(Cnx())
+
+class Crsr(Cnx):
+    def __init__(self):
+        super().__init__()
+
+        self.cursor = self.conexao.cursor(dictionary=True)
+        
+    def teste(self):
+        if self.config and self.conexao and self.cursor:
+            return super().teste()
+        elif not self.config or self.conexao or self.cursor:
+            raise ValueError('\n___[__| TESTE DE CONEXAO: ERROR |__]\n')
+        else:
+            return "\nCursor: ERROR\n"
+
+# print(Crsr().teste())
+   
+
+
+
+
+
+class c_M_N_D_s_A_l_N(Crsr):
+    def __init__(self):
+        super().__init__()
+    def teste(self):
+        return super().teste()
+
+    def tudo(self):
+        cmd = " select nome, dt_nscmnt as data, snh as chave from ALUNOS; "
+        self.c_r_s_r.execute(cmd)
+        dds = self.c_r_s_r.fetchall()
+        
+                    
+       
+        # nome data chave
+        self.c_r_s_r.close()
+        self.c_n_x.close()
+        return dds
+
+
+
+
+    def cnvrt(self, t):
+        return datetime.strptime(t, '%Y, %m, %d').date()
+
+
+
+
+    def pgr(self):
+        self.cursor.execute(" select nome as t, dt_nscmnt as n, snh as k  from ALUNOS ")
+        lote = self.cursor.fetchone()[0]
+        self.cursor.close()
+        self.conexao.close()
+        return lote
+    
+
+        
+
+# print(c_M_N_D_s_A_l_N().tudo())
