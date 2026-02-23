@@ -2,7 +2,7 @@ import mysql.connector
 from datetime import datetime
 from mysql.connector import pooling,Error
 from pathlib import Path
-import os
+# import os
 from dotenv import load_dotenv, dotenv_values
 
 import hashlib
@@ -139,15 +139,17 @@ class Crsr(Cnx):
     def __init__(self):
         super().__init__()
 
-        self.cursor = self.conexao.cursor(dictionary=True)
-        
-    def teste(self):
-        if self.config and self.conexao and self.cursor:
-            return super().teste()
-        elif not self.config or self.conexao or self.cursor:
-            raise ValueError('\n___[__| TESTE DE CONEXAO: ERROR |__]\n')
-        else:
-            return "\nCursor: ERROR\n"
+        try:
+
+            self.cursor = self.conexao.cursor(dictionary=True)
+            if not self.cursor:
+                raise TypeError
+        except AttributeError as error:
+            print(f"\n__variavel inexistente__\n__ {error}__\n")
+   
+
+
+    
 
 # print(Crsr())
    
