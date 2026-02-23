@@ -113,8 +113,7 @@ class Cnfg: #configações de conexão
         
 # print(Cnfg())
 
-# Instância global
-# db_config = Cnfg()
+
 class Cnx(Cnfg):
     def __init__(self):
         super().__init__()
