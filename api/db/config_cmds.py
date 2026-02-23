@@ -3,45 +3,88 @@ from datetime import datetime
 from mysql.connector import pooling,Error
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 
 import hashlib
 
 
 def carregar(text: str) -> str:
-    hasg = hashlib.sha256(text.encode('utf-8'))
-    return hasg.hexdigest()
+    try:
+        if type(text) != str:
+            raise TypeError("\n Tipo Inválido \n")
+        elif text.strip() == "":
+            raise ValueError("\n a variavel está vazia \n")
+    except TypeError:
+        raise TypeError("\n Tipo Inválido \n")
+    except ValueError:
+        raise ValueError("\n a variavel está vazia \n")
+    else:
+        hasg = hashlib.sha256(text.encode('utf-8'))
+        return hasg.hexdigest()
 
 
 
 class Cnfg: #configações de conexão
     def __init__(self):
-        BASE = Path(__file__).resolve().parent / "intern" 
-        ENV_PATH = BASE / ".env"
-        load_dotenv(ENV_PATH)
-        self.config = {
-            'user': os.getenv('DB_USER'),
-            'password': os.getenv('DB_PASSWORD'),
-            'host': os.getenv('DB_HOST'),
-            'database': os.getenv('DB_NAME'), 
-            'port': os.getenv('DB_PORT', 3306),
-             'raise_on_warnings': True,
-            'autocommit': True
-        }
-        # print(self.config)
+        try:
+            BASE = Path(__file__).resolve().parent / "intern" 
+            ENV_PATH = BASE / ".env"
+            carregado = load_dotenv(ENV_PATH)
+            
+            if not BASE.exists(): #verifica se a pasta existe
+                raise FileNotFoundError
+            if not ENV_PATH.exists(): #verifica se o arquivo existe
+                raise FileNotFoundError
+            if not carregado:
+                raise RuntimeError
+            
+        except FileNotFoundError as error:
+            print(f"\n__Pasta ou arquivo inexistente__\n{error}\n")
+        except RuntimeError:
+            print("\n__erro ao executar arquivo__\n")    
+        else:
+            
+                try:
+                    carregado = dotenv_values(ENV_PATH)
+                
+                    self.config = {
+                        'user': carregado['DB_USER'],
+                        'password': carregado['DB_PASSWORD'],
+                        'host': carregado['DB_HOST'],
+                        'database': carregado['DB_NAME'], 
+                        'port': carregado['DB_PORT'],
+                        'raise_on_warnings': True,
+                        'autocommit': True
+                        }
+                
+                except KeyError as error:
+                    print(f"\n__Chave Inexistente__{error}\n")
+                
+                # if not self.config['user'].exists():
+                #     raise KeyError
+            
+            
+
+            
+            # print("ok")
         
         try:
                 self.pool = pooling.MySQLConnectionPool(
                     pool_name= "api_pool", #nome da pool(identificação)
-                    pool_size= 5, #maximo de 5 conexões simultaneas
+                    pool_size= 5, # maximo de 5 conexões simultaneas
                     pool_reset_session=True, # limpa a sessão entree usos
 
                     **self.config  # suas configurações do mysql
             )
-                print("pools de conexões cirados com sucesso")
+                # print("pools de conexões cirados com sucesso")
         except Error as e:
-            print(f"Linha: 29\nError ao criar pool de conexões: {e}")
+            # print(f"Linha: 29\nError ao criar pool de conexões: {e}")
             self.pool = None
+    
+            
+   
+            
+          
 
     def get_connection(self):
         """Retorna uma conexão do pool"""
@@ -66,26 +109,28 @@ class Cnfg: #configações de conexão
             return False, f"Erro na conexão: {e}"
         return False, "Falha na conexão"
 
-    def teste(self):
-        if self.config:
-            return '''\n___[__| TESTE DE CONEXAO: OK -|__]\n '''
-        else:
-            raise ValueError('\n___[__| TESTE DE CONEXAO: ERROR |__]\n')
+ 
         
-# print(Cnfg().teste())
+# print(Cnfg())
 
 # Instância global
 # db_config = Cnfg()
 class Cnx(Cnfg):
     def __init__(self):
         super().__init__()
+        try: 
         # print(self.config)
-        self.conexao = mysql.connector.connect(**self.config)
-    def teste(self):
-        if self.conexao:
-            return super().teste()
-        elif not self.config or self.conexao:
-            raise ValueError('\n___[__| TESTE DE CONEXAO: ERROR |__]\n')
+            self.conexao = mysql.connector.connect(**self.config)
+            if not self.conexao:
+                raise AttributeError
+            
+        except AttributeError as error:
+            print(f"\n__Configuração não definida___\n {error}\n")
+        except ValueError as error:
+            print(f"Error no {error}")
+
+
+    
 
 
 # print(Cnx())
@@ -104,7 +149,7 @@ class Crsr(Cnx):
         else:
             return "\nCursor: ERROR\n"
 
-# print(Crsr().teste())
+# print(Crsr())
    
 
 
