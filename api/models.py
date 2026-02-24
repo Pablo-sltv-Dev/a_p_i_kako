@@ -18,7 +18,7 @@ class L_g:
         except TypeError as error:
             print(f"\n__ Valor da variavel incorreto __\n__{error}") 
         else:
-            self.bnc = c_M_N_D_s_A_l_N()
+            self.__bnc = c_M_N_D_s_A_l_N()
             self.n_m =  x #nome
             self.d_t = y # data de nascimento
             self.s_h = carregar(z) # senha
@@ -46,7 +46,7 @@ class L_g:
 
     
     def x(self):
-        print(self.s_h)
+        # print(self.s_h)
         p = False
         dds = self.bnc.tudo()
         
@@ -68,3 +68,9 @@ class L_g:
             return False
         else:
             return None
+        
+
+
+
+
+
