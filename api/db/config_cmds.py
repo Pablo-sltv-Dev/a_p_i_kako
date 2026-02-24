@@ -250,7 +250,7 @@ class C_m_n_d_S(Crsr):
             return False
  
 
-print(C_m_n_d_S()) 
+# print(C_m_n_d_S()) 
 
 
 

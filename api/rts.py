@@ -1,7 +1,7 @@
 #  TESTES
 
 from api import app
-from db import C_m_n_d_S
+from .db import C_m_n_d_S
 from .models import L_g
 from flask import jsonify, request
 from flask_cors import CORS, cross_origin

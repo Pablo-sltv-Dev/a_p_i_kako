@@ -9,10 +9,10 @@ from .db import *
 app = Flask(__name__)
 
 
-sucess = v_l_d_d()
+sucess = v_l_d_d(".env")
 
 from .rts import *
-from models import *
+from .models import *
 
 
 
