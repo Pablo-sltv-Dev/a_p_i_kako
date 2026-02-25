@@ -56,9 +56,9 @@ class L_g:
                     p = False
                     break
                 elif self.n_m == d['nome'] and self.s_h == d['chave']:
-                    print("o login foi")
+                    # print("o login foi")
                     p = True
-                    # print(d['nome'])
+                    
                     return True
                 # return True
                 else:

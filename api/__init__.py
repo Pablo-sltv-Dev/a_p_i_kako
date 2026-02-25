@@ -1,28 +1,49 @@
+#bibliotecas:
+
 from flask import Flask
 from flask_cors import CORS
-# from 
-from .config import *
-from .db import *
+
+#______________________________
+
+
+
+
+
+
 
 
 
 app = Flask(__name__)
 
 
-sucess = v_l_d_d(".env")
 
-from .rts import *
+
+
+
+from .routes import *
+from .config import *
+from .db import *
 from .models import *
 
+@app.before_request
+def vrf_point():
+    try:
+        if not request.endpoint:
+            raise ModuleNotFoundError
+    except ModuleNotFoundError as error:
+        print(f"\n__ Endpoint não encontrado__\n {error}")
+        return jsonify({"Menssage": "endpoint não encontrado"})
 
+# except ImportError:
+#     from .routes import *
+#     from .config import *
+#     from .db import *
+#     from .models import *
 
+# else:
+#     pass
 
-# from flask import Flask
+sucess = v_l_d_d()
 
-# app = Flask(__name__)
-
-# @app.route("/")
-# def home():
-#     return {"status": "API viva 🚀"}
 
 
