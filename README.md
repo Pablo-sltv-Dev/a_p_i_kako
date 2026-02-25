@@ -2,7 +2,7 @@
 
 ---
 
-```markdown
+
 # 📚 API de Gerenciamento de Aulas
 
 API desenvolvida em **Flask** para gerenciamento de **cadastro e confirmação de presença em aulas**, com dois tipos de usuários:
@@ -24,7 +24,7 @@ API desenvolvida em **Flask** para gerenciamento de **cadastro e confirmação d
 ---
 ## 📁 Estrutura do projeto
 
-````
+```
 
 a_p_i_kako
 ├── aluno
@@ -68,7 +68,7 @@ a_p_i_kako
 └── run.py
 
 
-````
+```
 
 
 > A estrutura pode ser modificada conforme o projeto evoluir.
@@ -92,7 +92,7 @@ python -m venv venv
 
 **Windows**
 
-```bash
+```bash 
 venv\Scripts\activate
 ```
 
@@ -141,8 +141,9 @@ python app.py
 
 A API estará disponível em:
 
-```
+```bash
 http://localhost:5000
+
 ```
 
 ---
@@ -243,8 +244,7 @@ Realiza a verificação das credenciais do aluno e efetua o login.
 Os endpoints podem ser testados usando:
 
 * Postman
-* Insomnia
-* curl
+
 
 ---
 
