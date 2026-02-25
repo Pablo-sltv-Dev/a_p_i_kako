@@ -11,7 +11,7 @@ def v_l_d_d(nome=None):
             "tp" : str("production"),
             "ch": None,
             "debug": False,
-            "port": 8000
+            "port": 5000
         }
         return dados
     else:
