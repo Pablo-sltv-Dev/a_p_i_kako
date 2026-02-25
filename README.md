@@ -24,7 +24,7 @@ API desenvolvida em **Flask** para gerenciamento de **cadastro e confirmação d
 ---
 ## 📁 Estrutura do projeto
 
-```
+```bash
 
 a_p_i_kako
 ├── aluno
